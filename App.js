@@ -14,6 +14,11 @@ import {
 } from 'react-native';
 import TodoInput from './src/component/TodoInput';
 import TodoItem from './src/component/TodoItem';
+import Store from 'react-native-store';
+
+const DB = {
+    'list': Store.model('list')
+}
 
 
 export default class App extends Component<{}> {
@@ -23,6 +28,24 @@ export default class App extends Component<{}> {
     this.state = {
       list: [],
     };
+  }
+
+  componentDidMount() {
+    // Return all items
+    DB.list.find().then(resp => {
+      console.log(resp);
+      if(resp === null) return true
+
+      const list = [].concat(this.state.list);
+
+      resp.forEach((todo) => {
+        list.push(todo)
+      });
+
+      this.setState({
+        list,
+      });
+    });
   }
 
   _delete = (index) => () => {
@@ -58,8 +81,10 @@ export default class App extends Component<{}> {
   }
 
   _onSave = () => {
-    console.log('Save!')
-    console.log(this.state.list)
+    this.state.list.forEach((todo) => {
+      delete todo._id
+      DB.list.add(todo);
+    });
   }
 
   render() {
