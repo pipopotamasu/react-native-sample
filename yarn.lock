@@ -3486,6 +3486,10 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-store@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-store/-/react-native-store-0.4.1.tgz#dc0c61021b9b033ae3c06660ec1985771aa4300c"
+
 react-native@0.51.0:
   version "0.51.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.51.0.tgz#fe25934b3030fd323f3ca1a70f034133465955ed"

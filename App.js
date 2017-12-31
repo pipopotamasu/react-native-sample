@@ -14,6 +14,11 @@ import {
 } from 'react-native';
 import TodoInput from './src/component/TodoInput';
 import TodoItem from './src/component/TodoItem';
+import Store from 'react-native-store';
+
+const DB = {
+    'list': Store.model('list')
+}
 
 
 export default class App extends Component<{}> {
@@ -25,9 +30,30 @@ export default class App extends Component<{}> {
     };
   }
 
+  componentDidMount() {
+    // Return all items
+    DB.list.find().then(resp => {
+      console.log(resp);
+      if(resp === null) return true
+
+      const list = [].concat(this.state.list);
+
+      resp.forEach((todo) => {
+        list.push(todo)
+      });
+
+      this.setState({
+        list,
+      });
+    });
+  }
+
   _delete = (index) => () => {
     const list = [].concat(this.state.list);
     list.splice(index, 1);
+    if(this.state.list[index]._id != undefined) {
+      DB.list.removeById(this.state.list[index]._id);
+    }
 
     this.setState({
       list,
@@ -57,6 +83,14 @@ export default class App extends Component<{}> {
     });
   }
 
+  _onSave = () => {
+    this.state.list.forEach((todo) => {
+      if(todo._id != undefined) delete todo._id;
+      console.log(todo)
+      DB.list.add(todo);
+    });
+  }
+
   render() {
     const {
       list,
@@ -65,7 +99,7 @@ export default class App extends Component<{}> {
     return (
       <View style={styles.container}>
         <View style={styles.main}>
-          <TodoInput onPress={this._onPress} />
+          <TodoInput onPress={this._onPress} onSave={this._onSave} />
           <View style={styles.todoListContainer}>
             <FlatList
               style={styles.todoList}
