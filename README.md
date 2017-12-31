@@ -14,4 +14,4 @@ This is React native todo-app for my practice.
 
 * React-native
 
-* React-native-store
+* AsyncStorage(React-native-store)
