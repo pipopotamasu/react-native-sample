@@ -49,6 +49,10 @@ export default class TodoInput extends Component {
     this.setState({text: ''});
   }
 
+  _onSave = () => {
+    this.props.onSave();
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -65,6 +69,7 @@ export default class TodoInput extends Component {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.buttonSave]}
+          onPress={this._onSave}
         >
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>

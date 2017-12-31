@@ -57,6 +57,11 @@ export default class App extends Component<{}> {
     });
   }
 
+  _onSave = () => {
+    console.log('Save!')
+    console.log(this.state.list)
+  }
+
   render() {
     const {
       list,
@@ -65,7 +70,7 @@ export default class App extends Component<{}> {
     return (
       <View style={styles.container}>
         <View style={styles.main}>
-          <TodoInput onPress={this._onPress} />
+          <TodoInput onPress={this._onPress} onSave={this._onSave} />
           <View style={styles.todoListContainer}>
             <FlatList
               style={styles.todoList}
