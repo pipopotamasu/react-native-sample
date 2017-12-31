@@ -51,6 +51,9 @@ export default class App extends Component<{}> {
   _delete = (index) => () => {
     const list = [].concat(this.state.list);
     list.splice(index, 1);
+    if(this.state.list[index]._id != undefined) {
+      DB.list.removeById(this.state.list[index]._id);
+    }
 
     this.setState({
       list,
@@ -82,7 +85,8 @@ export default class App extends Component<{}> {
 
   _onSave = () => {
     this.state.list.forEach((todo) => {
-      delete todo._id
+      if(todo._id != undefined) delete todo._id;
+      console.log(todo)
       DB.list.add(todo);
     });
   }
