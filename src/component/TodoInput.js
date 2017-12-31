@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
   },
+  buttonSave: {
+    backgroundColor: '#4169E1',
+  },
   buttonText: {
     color: '#FFF',
     fontWeight: '500',
@@ -58,7 +61,12 @@ export default class TodoInput extends Component {
           style={styles.button}
           onPress={this._onPress}
         >
-          <Text style={styles.buttonText}>追加</Text>
+          <Text style={styles.buttonText}>Add</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.buttonSave]}
+        >
+          <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View>
     );
